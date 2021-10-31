@@ -54,8 +54,8 @@ function App() {
       <Header>NOT MUCH TO SEE <Underline>YET</Underline></Header>
       <SubHeader>While I’m working on finishing this page, feel free to check out my public profiles</SubHeader>
       <SocialsList>
-        <li><a target="_blank" href='https://github.com/qualiti'>Github</a></li>
-        <li><a target="_blank" href='https://www.linkedin.com/in/tony-david-sprotte-6555a11a5/'>LinkedIn</a></li>
+        <li><a target="_blank" rel="noreferrer" href='https://github.com/qualiti'>Github</a></li>
+        <li><a target="_blank" rel="noreferrer" href='https://www.linkedin.com/in/tony-david-sprotte-6555a11a5/'>LinkedIn</a></li>
       </SocialsList>
     </Page>
   );
