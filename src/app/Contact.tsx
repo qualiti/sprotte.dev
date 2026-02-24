@@ -54,7 +54,7 @@ const Contact = () => {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/sprotte/"
+                href="https://www.linkedin.com/in/tony-david-sprotte-6555a11a5/"
                 target="_blank"
                 className="group flex items-center justify-between border border-brand-gray bg-brand-dark p-6 hover:border-brand-orange transition-all duration-300 w-full"
               >
