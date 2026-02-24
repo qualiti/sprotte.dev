@@ -1,3 +1,6 @@
+'use client';
+import { motion } from 'framer-motion';
+
 const experiences = [
   {
     title: 'Owner & Developer',
@@ -24,21 +27,59 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">Experience</h2>
-        <div className="space-y-8">
+    <section id="experience" className="py-32 relative overflow-hidden bg-brand-dark">
+      <div className="container mx-auto px-4 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-20 pb-6 flex items-end justify-between border-b border-brand-gray"
+        >
+          <h2 className="font-display text-5xl md:text-8xl uppercase leading-none m-0">
+            <span className="text-brand-orange text-3xl align-top mr-2 block md:inline">03</span>
+            Operation <span className="text-outline-white">History</span>
+          </h2>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-orange hidden md:block">
+            Career Timeline
+          </span>
+        </motion.div>
+
+        <div className="relative border-l border-brand-gray ml-2 md:ml-4 lg:ml-8">
           {experiences.map((exp, index) => (
-            <div key={index} className="flex flex-col md:flex-row">
-              <div className="md:w-1/4">
-                <h3 className="text-lg font-semibold text-gray-800">{exp.title}</h3>
-                <p className="text-gray-600">{exp.company}</p>
-                <p className="text-sm text-gray-500">{exp.period}</p>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              key={index}
+              className="mb-16 last:mb-0 relative pl-8 md:pl-16 group"
+            >
+              {/* Timeline Marker */}
+              <div className="absolute -left-[5px] top-2 w-2 h-2 bg-brand-dark border-2 border-brand-orange rounded-full group-hover:scale-150 group-hover:bg-brand-orange transition-all duration-300"></div>
+              <div className="absolute -left-[30px] top-[14px] w-[30px] h-px bg-brand-gray group-hover:bg-brand-orange transition-colors duration-300"></div>
+
+              <div className="flex flex-col md:flex-row gap-4 md:gap-12 items-start">
+                {/* Meta Information */}
+                <div className="md:w-1/3 flex flex-col pt-1">
+                  <div className="font-mono text-sm text-brand-orange uppercase tracking-wider mb-2">
+                    {exp.period}
+                  </div>
+                  <h3 className="font-display text-3xl uppercase leading-none text-brand-light mb-1">
+                    {exp.title}
+                  </h3>
+                  <p className="font-mono text-xs uppercase tracking-widest text-brand-gray">
+                    @ {exp.company}
+                  </p>
+                </div>
+
+                {/* Content */}
+                <div className="md:w-2/3 bg-brand-gray/10 border border-brand-gray/30 p-6 md:p-8 hover:border-brand-orange/50 transition-colors duration-300">
+                  <p className="font-mono text-sm text-brand-light/80 leading-relaxed text-justify">
+                    {exp.description}
+                  </p>
+                </div>
               </div>
-              <div className="md:w-3/4 mt-2 md:mt-0">
-                <p className="text-gray-600 text-justify">{exp.description}</p>
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -8,9 +8,19 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        mono: ['var(--font-plex-mono)', 'monospace'],
+        display: ['var(--font-teko)', 'sans-serif'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        brand: {
+          orange: '#ff4500',
+          dark: '#050505',
+          gray: '#111111',
+          light: '#eaeaea',
+        },
       },
     },
   },

@@ -1,5 +1,7 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -15,13 +17,6 @@ const projects = [
     image: '/spotfinder.png',
     link: 'https://spotfinder.work',
   },
-  // {
-  //   name: 'Allie',
-  //   description:
-  //     'A SaaS offering with an AI-powered API for business intelligence, featuring subscription plans and quotas for API access.',
-  //   image: 'https://placehold.co/300x200',
-  //   link: 'https://allie-ai.com',
-  // },
   {
     name: 'Billbee-Sendcloud-Adapter',
     description:
@@ -39,35 +34,85 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">Projects</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div
+    <section
+      id="projects"
+      className="py-32 relative overflow-hidden bg-brand-dark border-t border-brand-gray"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-gray/20 via-brand-dark to-brand-dark -z-10"></div>
+
+      <div className="container mx-auto px-4 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-20 flex justify-between items-end border-b border-brand-gray pb-6"
+        >
+          <h2 className="font-display text-5xl md:text-8xl uppercase leading-none m-0">
+            <span className="text-brand-orange text-3xl align-top mr-2 block md:inline">02</span>
+            Engineered <span className="text-outline-white">Systems</span>
+          </h2>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-orange hidden md:block">
+            Projects & Work
+          </span>
+        </motion.div>
+
+        <div className="flex flex-col space-y-32">
+          {projects.map((project, index) => (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8 }}
               key={project.name}
-              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 hover:scale-105"
+              className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center group`}
             >
-              <Image
-                src={project.image}
-                alt={project.name}
-                width={700}
-                height={200}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.name}</h3>
-                <p className="text-gray-600 mb-4 text-justify">{project.description}</p>
-                {project.link && (
+              {/* Image Container */}
+              <div className="w-full lg:w-3/5 relative aspect-video border border-brand-gray overflow-hidden">
+                <div className="absolute inset-0 bg-brand-orange mix-blend-color z-10 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover object-top grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-700 ease-in-out"
+                />
+
+                {/* Tech overlay pattern */}
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiPjwvcmVjdD4KPHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjEiPjwvcGF0aD4KPC9zdmc+')] pointer-events-none opacity-30 z-10 mix-blend-overlay"></div>
+              </div>
+
+              {/* Content Container */}
+              <div className="w-full lg:w-2/5 flex flex-col justify-center">
+                <span className="font-mono text-xs text-brand-orange mb-4 block">
+                  {'// PRJ_'}
+                  {String(index + 1).padStart(3, '0')}
+                </span>
+                <h3 className="font-display text-4xl md:text-5xl uppercase mb-6 leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                  {project.name}
+                </h3>
+
+                <div className="relative pl-6 border-l border-brand-orange">
+                  <p className="font-mono text-sm text-brand-light/70 leading-relaxed text-justify mb-8">
+                    {project.description}
+                  </p>
+                </div>
+
+                {project.link ? (
                   <Link
                     href={project.link}
-                    className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    target="_blank"
+                    className="font-mono text-sm uppercase tracking-widest border border-brand-light px-8 py-4 inline-flex items-center gap-4 w-fit hover:bg-brand-light hover:text-brand-dark transition-all duration-300 group/btn"
                   >
-                    View Project
+                    Launch Sequence
+                    <span className="bg-brand-orange w-2 h-2 rounded-full group-hover/btn:animate-ping"></span>
                   </Link>
+                ) : (
+                  <div className="font-mono text-sm uppercase tracking-widest border border-brand-gray text-brand-gray px-8 py-4 inline-flex items-center gap-4 w-fit cursor-not-allowed">
+                    Internal System
+                    <span className="bg-brand-gray w-2 h-2"></span>
+                  </div>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
