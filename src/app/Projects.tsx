@@ -3,6 +3,12 @@ import Image from 'next/image';
 
 const projects = [
   {
+    name: 'SEO Content Generator',
+    description:
+      'A full-stack SEO content automation platform built for a client that streamlines the creation and publishing of SEO-optimized content at scale. It features a pipeline of background workers that scrape source URLs, generate content using AI models from OpenAI, Anthropic, and Google, produce images, and publish directly to WordPress and Shopify. Built as a Turborepo monorepo, the technology stack includes React 19, TanStack Router, Elysia, PostgreSQL with Drizzle ORM, Redis, and BullMQ for job queue management.',
+    image: '/seo-content-generator.png',
+  },
+  {
     name: 'spotfinder.work',
     description:
       'Spotfinder.work is a platform designed to help users find the perfect café or workspace in their city. It allows users to search, review, and share details about cafés, coworking spaces, and other work-friendly spots. With features like location-based search, user-generated reviews, and interactive maps, Spotfinder aims to connect remote workers with ideal workspaces, fostering a vibrant online community. The technology stack includes React, TypeScript, Remix, Tailwind, Redis and PostgreSQL.',

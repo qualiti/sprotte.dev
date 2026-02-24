@@ -12,7 +12,7 @@ const About = () => {
               Germany. My passion for creating software began in my early youth, and I&apos;ve been
               honing my skills ever since. I have a particular love for building web applications,
               with a focus on Full Stack development. My favorite tech stack includes TypeScript and
-              React, and I&apos;ve recently been exploring frameworks like Remix and Next.js to
+              React, and I&apos;ve recently been exploring frameworks like TanStack Start and Next.js to
               expand my expertise.
             </p>
             <p className="mt-2">
