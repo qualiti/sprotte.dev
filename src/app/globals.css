@@ -2,13 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: #050505;
+    --foreground: #eaeaea;
+  }
+}
+
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px #ff4500;
+    color: transparent;
+  }
+  .text-outline-white {
+    -webkit-text-stroke: 1px #eaeaea;
+    color: transparent;
+  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background-color: #ff4500;
+  color: #fff;
 }
