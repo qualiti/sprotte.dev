@@ -62,8 +62,8 @@ const Experience = () => {
               className="mb-16 last:mb-0 relative pl-8 md:pl-16 group"
             >
               {/* Timeline Marker */}
-              <div className="absolute -left-[5px] top-2 w-2 h-2 bg-brand-dark border-2 border-brand-orange rounded-full group-hover:scale-150 group-hover:bg-brand-orange transition-all duration-300"></div>
-              <div className="absolute -left-[30px] top-[14px] w-[30px] h-px bg-brand-gray group-hover:bg-brand-orange transition-colors duration-300"></div>
+              <div className="absolute left-[-5px] top-2 w-2 h-2 bg-brand-dark border-2 border-brand-orange rounded-full group-hover:scale-150 group-hover:bg-brand-orange transition-all duration-300"></div>
+              <div className="absolute left-[-30px] top-[14px] w-[30px] h-px bg-brand-gray group-hover:bg-brand-orange transition-colors duration-300"></div>
 
               <div className="flex flex-col md:flex-row gap-4 md:gap-12 items-start">
                 {/* Meta Information */}
