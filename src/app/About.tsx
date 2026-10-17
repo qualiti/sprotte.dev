@@ -26,8 +26,8 @@ const About = () => {
               Based in Hamburg, Germany. Engineering scalable solutions since 2020.
             </p>
             <p className="font-mono text-sm max-w-lg text-brand-light/70 text-justify">
-              By day, I work full-time at data experts gmbh, and in my free time, I dive into side
-              projects under my own company, Sprotte Development.
+              By day, I work full-time at Geno Digital Solutions GmbH, and in my free time, I dive
+              into side projects under my own company, Sprotte Development.
             </p>
           </div>
         </motion.div>

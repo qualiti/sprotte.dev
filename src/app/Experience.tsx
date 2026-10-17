@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 
 const experiences = [
   {
+    title: 'Full Stack Software Engineer',
+    company: 'Geno Digital Solutions GmbH',
+    period: '2026 - Present',
+    description:
+      'Building automation solutions for cooperative banks (Volks- und Raiffeisenbanken) within the cooperative financial group. Developing software that combines AI and robotic process automation to streamline core banking processes such as mortgage production, loan disbursement and garnishment processing, integrated with existing banking systems like agree21. Delivered as a service, the solutions reduce manual effort and increase process reliability for more than 100 banks.',
+  },
+  {
     title: 'Owner & Developer',
     company: 'Sprotte Development',
     period: '2024 - Present',
@@ -12,7 +19,7 @@ const experiences = [
   {
     title: 'Full Stack Software Engineer',
     company: 'data experts gmbh',
-    period: '2020 - Present',
+    period: '2020 - 2026',
     description:
       'Developed and maintained web applications for funding management in agriculture, enabling efficient processing subsidy applications. Designed scalable back-end services and intuitive front-end interfaces, optimizing workflows for government agencies and agricultural stakeholders. The technology stack includes React, TypeScript, Spring Boot and PostgreSQL.',
   },
