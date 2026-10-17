@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${teko.variable} ${plexMono.variable} scroll-smooth`}>
-      <body className="antialiased bg-black text-white font-mono selection:bg-orange-600 selection:text-white relative">
+      <body className="antialiased bg-black text-white font-mono selection:bg-[#ea580c] selection:text-white relative">
         <div
           className="fixed inset-0 pointer-events-none z-[-1] opacity-20"
           style={{

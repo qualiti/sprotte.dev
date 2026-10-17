@@ -1,5 +1,6 @@
 'use client';
-import { Github, LinkedinIcon, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Github, Linkedin } from './BrandIcons';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
@@ -14,7 +15,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className="border border-brand-orange bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-orange/5 via-brand-dark to-brand-dark p-8 md:p-16 lg:p-24 relative"
+          className="border border-brand-orange bg-radial-[circle_at_center] from-brand-orange/5 via-brand-dark to-brand-dark p-8 md:p-16 lg:p-24 relative"
         >
           {/* Decorative Corner Borders */}
           <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-brand-orange"></div>
@@ -59,7 +60,7 @@ const Contact = () => {
                 className="group flex items-center justify-between border border-brand-gray bg-brand-dark p-6 hover:border-brand-orange transition-all duration-300 w-full"
               >
                 <div className="flex items-center gap-4">
-                  <LinkedinIcon className="w-6 h-6 text-brand-orange group-hover:scale-110 transition-transform duration-300" />
+                  <Linkedin className="w-6 h-6 text-brand-orange group-hover:scale-110 transition-transform duration-300" />
                   <span className="font-mono text-sm md:text-lg uppercase text-brand-light group-hover:text-brand-orange transition-colors duration-300">
                     LinkedIn
                   </span>

@@ -41,8 +41,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="lg:col-span-5 relative group"
           >
-            <div className="absolute inset-0 bg-brand-orange translate-x-4 translate-y-4 rounded-sm transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6 -z-10"></div>
-            <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700">
+            <div className="absolute inset-0 bg-brand-orange translate-x-4 translate-y-4 rounded-xs transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6 -z-10"></div>
+            <div className="relative aspect-square md:aspect-4/5 overflow-hidden rounded-xs grayscale group-hover:grayscale-0 transition-all duration-700">
               <Image
                 src="/me.png"
                 alt="Tony David Sprotte"
@@ -69,7 +69,7 @@ const About = () => {
               System <span className="text-outline-white">Profile</span>
             </h2>
 
-            <div className="space-y-6 font-mono text-sm md:text-base text-brand-light/80 leading-relaxed text-justify">
+            <div className="space-y-6 font-mono text-sm md:text-base text-brand-light/80 leading-relaxed md:leading-6 text-justify">
               <p>
                 Hi there! I&apos;m Tony. My passion for creating software began in my early youth,
                 and I&apos;ve been honing my skills ever since. I have a particular love for

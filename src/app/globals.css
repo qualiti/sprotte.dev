@@ -1,31 +1,63 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+@theme {
+  --font-mono: var(--font-plex-mono), monospace;
+  --font-display: var(--font-teko), sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-brand-orange: #ff4500;
+  --color-brand-dark: #050505;
+  --color-brand-gray: #111111;
+  --color-brand-light: #eaeaea;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-outline {
+  -webkit-text-stroke: 1px #ff4500;
+  color: transparent;
+}
+
+@utility text-outline-white {
+  -webkit-text-stroke: 1px #eaeaea;
+  color: transparent;
+}
+
+/*
+  Kept in the base layer so utilities (e.g. `text-white`, `bg-black` on <body>)
+  still override them, as they did in Tailwind CSS v3.
+*/
 @layer base {
   :root {
     --background: #050505;
     --foreground: #eaeaea;
   }
-}
 
-@layer utilities {
-  .text-outline {
-    -webkit-text-stroke: 1px #ff4500;
-    color: transparent;
+  body {
+    color: var(--foreground);
+    background: var(--background);
   }
-  .text-outline-white {
-    -webkit-text-stroke: 1px #eaeaea;
-    color: transparent;
+
+  ::selection {
+    background-color: #ff4500;
+    color: #fff;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-}
-
-::selection {
-  background-color: #ff4500;
-  color: #fff;
 }

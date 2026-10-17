@@ -38,7 +38,7 @@ const Projects = () => {
       id="projects"
       className="py-32 relative overflow-hidden bg-brand-dark border-t border-brand-gray"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-gray/20 via-brand-dark to-brand-dark -z-10"></div>
+      <div className="absolute inset-0 bg-radial-[circle_at_center] from-brand-gray/20 via-brand-dark to-brand-dark -z-10"></div>
 
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
@@ -86,7 +86,7 @@ const Projects = () => {
                   {'// PRJ_'}
                   {String(index + 1).padStart(3, '0')}
                 </span>
-                <h3 className="font-display text-4xl md:text-5xl uppercase mb-6 leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                <h3 className="font-display text-4xl md:text-5xl uppercase mb-6 leading-tight md:leading-none group-hover:text-brand-orange transition-colors duration-300">
                   {project.name}
                 </h3>
 
