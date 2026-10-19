@@ -241,7 +241,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
             title={dict.work.title}
             text={dict.work.text}
           />
-          <div className="mx-auto mt-16 grid max-w-6xl gap-x-8 gap-y-14 md:grid-cols-2">
+          <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2">
             {projects.map((project) => (
               <article key={project.name} className="group relative">
                 <div className="transition duration-500 group-hover:-translate-y-1.5">

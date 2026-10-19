@@ -11,7 +11,7 @@ function fromAcceptLanguage(header: string | null): Locale | undefined {
     .map((part) => {
       const [tag, ...params] = part.trim().split(';');
       const q = params.find((p) => p.trim().startsWith('q='));
-      return { lang: tag.split('-')[0].toLowerCase(), q: q ? Number(q.trim().slice(2)) : 1 };
+      return { lang: tag.trim().split('-')[0].toLowerCase(), q: q ? Number(q.trim().slice(2)) : 1 };
     })
     .filter((entry) => entry.q > 0)
     .sort((a, b) => b.q - a.q)

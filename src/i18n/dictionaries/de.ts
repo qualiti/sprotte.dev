@@ -20,7 +20,7 @@ export const de: Dictionary = {
     role: 'Full Stack Engineer',
     title: 'Web-Apps, die einfach funktionieren.',
     subtitle: 'Von einem Full Stack Engineer aus Hamburg.',
-    intro: `Ich entwickle Web-Apps, Automatisierungen und Integrationen für kleine Teams und Start-ups, von der ersten Idee bis zum Launch. TypeScript und React schreibe ich seit ${profile.since}.`,
+    intro: `Ich entwickle Web-Apps, Automatisierungen und Integrationen für kleine Teams und Gründer, von der ersten Idee bis zum Launch. Seit ${profile.since} arbeite ich mit TypeScript und React.`,
     seeWork: 'Projekte ansehen',
     availability: 'Offen für neue Projekte · Antwort in 24 h',
     featured: 'Live-Projekt',
@@ -35,18 +35,18 @@ export const de: Dictionary = {
     eyebrow: 'Ausgewählte Projekte',
     title: 'Was ich gebaut habe',
     text: 'Plattformen für Kunden, eigene Produkte und das Community-Projekt, mit dem alles angefangen hat.',
-    privateProject: 'privates Kundenprojekt',
+    privateProject: 'nicht öffentliches Kundenprojekt',
     imageAlt: (name) => `Illustration zu ${name}`,
     projects: {
       'seo-content-generator': {
         tagline: 'Plattform zur Content-Automatisierung für einen Kunden',
         description:
-          'Eine Full-Stack-Plattform für einen Kunden, die das Erstellen und Veröffentlichen von SEO-optimierten Inhalten in großem Umfang automatisiert. Eine Pipeline aus Background-Workern scrapt Quell-URLs, generiert Inhalte mit KI-Modellen von OpenAI, Anthropic und Google, erstellt Bilder und veröffentlicht direkt in WordPress und Shopify.',
+          'Eine Full-Stack-Plattform für einen Kunden, die das Erstellen und Veröffentlichen von SEO-optimierten Inhalten in großem Umfang automatisiert. Hintergrundprozesse lesen Inhalte von Webseiten aus, generieren Texte mit KI-Modellen von OpenAI, Anthropic und Google, erstellen Bilder und veröffentlichen die Ergebnisse direkt auf WordPress und Shopify.',
       },
       spotfinder: {
-        tagline: 'Arbeitsfreundliche Cafés in deiner Stadt finden',
+        tagline: 'Cafés zum Arbeiten in deiner Stadt finden',
         description:
-          'Eine Plattform, mit der man das passende Café oder den passenden Arbeitsplatz in der eigenen Stadt findet. Nutzer können Cafés, Coworking-Spaces und andere arbeitsfreundliche Orte suchen, bewerten und teilen, mit standortbasierter Suche, Bewertungen aus der Community und interaktiven Karten.',
+          'Eine Plattform, mit der man das passende Café oder den passenden Arbeitsplatz in der eigenen Stadt findet. Nutzer können Cafés, Coworking-Spaces und weitere Orte zum Arbeiten suchen, bewerten und teilen, mit standortbasierter Suche, Bewertungen aus der Community und interaktiven Karten.',
       },
       'billbee-sendcloud-adapter': {
         tagline: 'Automatisierte Versandetiketten für Bettergy',
