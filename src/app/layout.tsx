@@ -1,22 +1,21 @@
 import type { Metadata } from 'next';
-import { Teko, IBM_Plex_Mono } from 'next/font/google';
+import { Funnel_Display, Funnel_Sans } from 'next/font/google';
+import { profile } from './content';
 import './globals.css';
 
-const teko = Teko({
+const display = Funnel_Display({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-teko',
+  variable: '--font-au-display',
 });
 
-const plexMono = IBM_Plex_Mono({
+const sans = Funnel_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-plex-mono',
+  variable: '--font-au-sans',
 });
 
 export const metadata: Metadata = {
   title: 'sprotte.dev | Software Engineer',
-  description: 'Tony Sprotte - Full Stack Software Developer',
+  description: `${profile.name} - ${profile.role} from ${profile.location}. Web applications, automations and integrations.`,
 };
 
 export default function RootLayout({
@@ -25,17 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${teko.variable} ${plexMono.variable} scroll-smooth`}>
-      <body className="antialiased bg-black text-white font-mono selection:bg-[#ea580c] selection:text-white relative">
-        <div
-          className="fixed inset-0 pointer-events-none z-[-1] opacity-20"
-          style={{
-            backgroundImage: 'radial-gradient(#444 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }}
-        ></div>
-        {children}
-      </body>
+    <html lang="en" className={`${display.variable} ${sans.variable} scroll-smooth`}>
+      <body className="relative z-0 min-h-screen">{children}</body>
     </html>
   );
 }

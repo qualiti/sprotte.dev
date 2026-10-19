@@ -1,25 +1,9 @@
 @import 'tailwindcss';
 
-@theme {
-  --font-mono: var(--font-plex-mono), monospace;
-  --font-display: var(--font-teko), sans-serif;
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-brand-orange: #ff4500;
-  --color-brand-dark: #050505;
-  --color-brand-gray: #111111;
-  --color-brand-light: #eaeaea;
-}
-
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -31,33 +15,217 @@
   }
 }
 
-@utility text-outline {
-  -webkit-text-stroke: 1px #ff4500;
-  color: transparent;
+:root {
+  --au-ink: #0b1220;
+  --au-muted: #5b6475;
+  --au-blue: #0a7cff;
+  --au-blue-deep: #0063d6;
+  --au-line: rgb(11 18 32 / 0.08);
+  --au-soft: #f6f8fb;
 }
 
-@utility text-outline-white {
-  -webkit-text-stroke: 1px #eaeaea;
-  color: transparent;
+body {
+  background: #ffffff;
+  color: var(--au-ink);
+  font-family: var(--font-au-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/*
-  Kept in the base layer so utilities (e.g. `text-white`, `bg-black` on <body>)
-  still override them, as they did in Tailwind CSS v3.
-*/
-@layer base {
-  :root {
-    --background: #050505;
-    --foreground: #eaeaea;
-  }
+::selection {
+  background: #bfe3ff;
+  color: var(--au-ink);
+}
 
-  body {
-    color: var(--foreground);
-    background: var(--background);
-  }
+.au-display {
+  font-family: var(--font-au-display), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
 
-  ::selection {
-    background-color: #ff4500;
-    color: #fff;
+:focus-visible {
+  outline: 2px solid var(--au-blue);
+  outline-offset: 3px;
+}
+
+/* Frosted glass surfaces */
+.au-glass {
+  background: rgb(255 255 255 / 0.62);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow:
+    0 1px 2px rgb(11 18 32 / 0.04),
+    0 8px 24px -10px rgb(11 18 32 / 0.1),
+    0 30px 60px -30px rgb(11 18 32 / 0.18);
+}
+
+/* Same look as glass, without the backdrop blur, for surfaces that are nearly opaque anyway */
+.au-surface {
+  background: rgb(255 255 255 / 0.9);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow:
+    0 1px 2px rgb(11 18 32 / 0.04),
+    0 8px 24px -10px rgb(11 18 32 / 0.1),
+    0 30px 60px -30px rgb(11 18 32 / 0.18);
+}
+
+.au-card {
+  background: #ffffff;
+  border: 1px solid var(--au-line);
+  box-shadow:
+    0 1px 2px rgb(11 18 32 / 0.04),
+    0 12px 32px -18px rgb(11 18 32 / 0.16);
+}
+
+/* The one gradient mesh, behind the hero only */
+.au-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);
+  mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);
+}
+
+/* Soft blobs drawn as radial gradients: a filter: blur() here would be re-rasterized on every
+   animation frame, which is expensive on mobile. */
+.au-mesh span {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, var(--blob) 40%, transparent);
+  animation: au-drift 24s ease-in-out infinite alternate;
+}
+
+.au-mesh .au-mesh-sky {
+  width: 66rem;
+  height: 50rem;
+  top: -20rem;
+  left: -18rem;
+  --blob: #bfe3ff;
+}
+
+.au-mesh .au-mesh-mint {
+  width: 60rem;
+  height: 46rem;
+  top: -15rem;
+  right: -20rem;
+  --blob: #c9f2e3;
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+
+.au-mesh .au-mesh-apricot {
+  width: 52rem;
+  height: 38rem;
+  top: 9rem;
+  left: 24%;
+  --blob: #ffe1c7;
+  animation-duration: 32s;
+  animation-delay: -14s;
+}
+
+@keyframes au-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4rem, 2rem, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3rem, 3rem, 0) scale(0.95);
+  }
+}
+
+/* Hero load */
+.au-rise {
+  animation: au-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes au-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Chat: teaser bubble and new messages */
+.au-pop {
+  animation: au-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes au-pop {
+  from {
+    opacity: 0;
+    transform: translateX(8px) scale(0.96);
+  }
+}
+
+.au-msg {
+  animation: au-msg 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes au-msg {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+/* Chat typing indicator */
+.au-typing span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--au-muted);
+  opacity: 0.35;
+  animation: au-blink 1.2s infinite ease-in-out;
+}
+
+.au-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.au-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes au-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* FAQ disclosure */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .au-faq-icon {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-mesh span,
+  .au-rise,
+  .au-pop,
+  .au-msg,
+  .au-typing span {
+    animation: none;
   }
 }
