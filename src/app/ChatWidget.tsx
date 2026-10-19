@@ -12,6 +12,7 @@ import {
 import { X } from 'lucide-react';
 import { ChatThread } from './ChatThread';
 import { Avatar } from './Avatar';
+import { useChatDictionary } from '@/i18n/chat';
 import { profile } from './content';
 
 type ChatContextValue = { open: boolean; openChat: () => void; closeChat: () => void };
@@ -75,6 +76,7 @@ export function OpenChatButton({
 }
 
 function ChatHeader({ titleId, children }: { titleId?: string; children?: ReactNode }) {
+  const dict = useChatDictionary();
   return (
     <div className="flex items-center gap-3 border-b border-(--au-line) px-4 py-3.5 sm:px-5">
       <Avatar size={38} online />
@@ -82,7 +84,7 @@ function ChatHeader({ titleId, children }: { titleId?: string; children?: ReactN
         <p id={titleId} className="text-[0.95rem] font-semibold">
           {profile.displayName}
         </p>
-        <p className="text-xs text-(--au-muted)">Usually replies {profile.replyTime}</p>
+        <p className="text-xs text-(--au-muted)">{dict.replies}</p>
       </div>
       {children}
     </div>
@@ -97,6 +99,7 @@ function ChatLauncher({
   launcherRef: RefObject<HTMLButtonElement | null>;
 }) {
   const { open, openChat, closeChat } = useChat();
+  const t = useChatDictionary().launcher;
   const [teaser, setTeaser] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -145,7 +148,7 @@ function ChatLauncher({
           <button
             type="button"
             onClick={closeChat}
-            aria-label="Close chat"
+            aria-label={t.closePanel}
             className="grid size-9 place-items-center rounded-full text-(--au-muted) transition hover:bg-black/5 hover:text-(--au-ink)"
           >
             <X className="size-4.5" />
@@ -158,12 +161,12 @@ function ChatLauncher({
         {teaser && !everOpened && (
           <div className="au-pop au-surface flex items-center gap-1 rounded-2xl rounded-br-md py-1 pr-1 pl-4">
             <button type="button" onClick={openChat} className="py-2 text-sm font-medium">
-              Planning a project? Let&apos;s chat
+              {t.teaser}
             </button>
             <button
               type="button"
               onClick={dismissTeaser}
-              aria-label="Dismiss"
+              aria-label={t.dismiss}
               className="grid size-7 place-items-center rounded-full text-(--au-muted) hover:bg-black/5"
             >
               <X className="size-3.5" />
@@ -176,9 +179,7 @@ function ChatLauncher({
           type="button"
           onClick={open ? closeChat : openChat}
           aria-expanded={open}
-          aria-label={
-            open ? `Close chat with ${profile.firstName}` : `Chat with ${profile.firstName}`
-          }
+          aria-label={open ? t.close : t.open}
           className="rounded-full bg-(--au-blue) p-0.5 shadow-[0_10px_30px_-8px_rgb(10_124_255/0.55)] ring-2 ring-white transition hover:-translate-y-0.5"
         >
           <Avatar size={52} online />

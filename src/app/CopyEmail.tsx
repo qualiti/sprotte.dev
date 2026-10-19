@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
+import { useChatDictionary } from '@/i18n/chat';
 import { profile } from './content';
 
 export function CopyEmail() {
+  const t = useChatDictionary().copyEmail;
   const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
   const resetRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -31,9 +33,7 @@ export function CopyEmail() {
       ) : (
         <Copy className="size-3.5" />
       )}
-      <span aria-live="polite">
-        {status === 'copied' ? 'Copied' : status === 'failed' ? 'Copy failed' : 'Copy'}
-      </span>
+      <span aria-live="polite">{t[status]}</span>
     </button>
   );
 }

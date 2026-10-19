@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { ArrowUp, RotateCcw, Send } from 'lucide-react';
-import { mailto, profile, services } from './content';
+import { useChatDictionary, type ChatDictionary } from '@/i18n/chat';
+import { mailto, profile } from './content';
 import { Avatar } from './Avatar';
 
 type Stage = 'service' | 'timeline' | 'name' | 'email' | 'message' | 'review' | 'sent';
@@ -17,49 +18,37 @@ type Answers = {
   message: string;
 };
 
-const SOMETHING_ELSE = 'Something else';
-const serviceOptions = [...services, SOMETHING_ELSE];
-const timelineOptions = [
-  'As soon as possible',
-  'In the next 1–3 months',
-  'Later this year',
-  'Just exploring',
-];
-
-const greeting: Line[] = [
-  { text: `Hi, I'm ${profile.firstName}. Thanks for stopping by!` },
-  { text: 'What are you planning? Pick whatever fits best.' },
-];
-
 const emptyAnswers: Answers = { service: '', timeline: '', name: '', email: '', message: '' };
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const asLines = (texts: string[]): Line[] => texts.map((text) => ({ text }));
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function buildMailto(a: Answers) {
+function buildMailto(a: Answers, t: ChatDictionary['mail']) {
   const body = [
-    `Hi ${profile.firstName},`,
+    t.greeting,
     '',
-    `I'm looking for help with: ${a.service}`,
-    `Timeline: ${a.timeline}`,
+    t.service(a.service),
+    t.timeline(a.timeline),
     '',
-    a.message || '(No extra details yet.)',
+    a.message || t.noDetails,
     '',
-    'Best,',
+    t.signOff,
     a.name,
     a.email,
   ].join('\n');
-  return mailto(`Project inquiry: ${a.service}`, body);
+  return mailto(t.subject(a.service), body);
 }
 
-function summaryOf(a: Answers) {
+function summaryOf(a: Answers, t: ChatDictionary['thread']['summary']) {
   return [
-    `What: ${a.service}`,
-    `When: ${a.timeline}`,
-    `From: ${a.name} · ${a.email}`,
-    a.message ? `Note: ${a.message}` : '',
+    `${t.what}: ${a.service}`,
+    `${t.when}: ${a.timeline}`,
+    `${t.from}: ${a.name} · ${a.email}`,
+    a.message ? `${t.note}: ${a.message}` : '',
   ]
     .filter(Boolean)
     .join('\n');
@@ -78,9 +67,11 @@ export function ChatThread({
   className?: string;
 }) {
   const uid = useId();
+  const dict = useChatDictionary();
+  const t = dict.thread;
   const [messages, setMessages] = useState<Message[]>([]);
   // Tony's lines waiting to be "typed"; delivery only runs once `start` is true.
-  const [queue, setQueue] = useState<Line[]>(greeting);
+  const [queue, setQueue] = useState<Line[]>(() => asLines(t.greeting));
   const [stage, setStage] = useState<Stage>('service');
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
   const [draft, setDraft] = useState('');
@@ -138,18 +129,15 @@ export function ChatThread({
     setAnswers((a) => ({ ...a, service }));
     reply(service, 'timeline', [
       {
-        text:
-          service === SOMETHING_ELSE
-            ? "Sounds interesting. I'm curious!"
-            : `${service}, nice. That's right up my alley.`,
+        text: service === t.somethingElse ? t.somethingElseReply : t.serviceReply(service),
       },
-      { text: 'When would you like to get started?' },
+      { text: t.askTimeline },
     ]);
   }
 
   function pickTimeline(timeline: string) {
     setAnswers((a) => ({ ...a, timeline }));
-    reply(timeline, 'name', [{ text: 'Got it. And what should I call you?' }]);
+    reply(timeline, 'name', [{ text: t.askName }]);
   }
 
   function submitText(event: FormEvent) {
@@ -157,18 +145,13 @@ export function ChatThread({
     const value = draft.trim();
 
     if (stage === 'name') {
-      if (!value) return setError('Just a first name is fine.');
+      if (!value) return setError(t.nameError);
       setAnswers((a) => ({ ...a, name: value }));
-      reply(value, 'email', [
-        { text: `Nice to meet you, ${value}.` },
-        { text: 'Which email address should I reply to?' },
-      ]);
+      reply(value, 'email', [{ text: t.greetName(value) }, { text: t.askEmail }]);
     } else if (stage === 'email') {
-      if (!emailPattern.test(value)) return setError('That email address looks incomplete.');
+      if (!emailPattern.test(value)) return setError(t.emailError);
       setAnswers((a) => ({ ...a, email: value }));
-      reply(value, 'message', [
-        { text: 'Anything else I should know? A sentence or two is plenty, or skip it.' },
-      ]);
+      reply(value, 'message', [{ text: t.askMessage }]);
     } else if (stage === 'message') {
       finish(value);
     }
@@ -177,17 +160,14 @@ export function ChatThread({
   function finish(message: string) {
     const final = { ...answers, message };
     setAnswers(final);
-    reply(message || 'Nothing else for now.', 'review', [
-      { text: "Perfect. Here's what I'll receive:" },
-      { text: summaryOf(final), summary: true },
+    reply(message || t.noMessage, 'review', [
+      { text: t.review },
+      { text: summaryOf(final, t.summary), summary: true },
     ]);
   }
 
   function markSent() {
-    reply(`Send to ${profile.firstName}`, 'sent', [
-      { text: 'Your email app should open with everything filled in. Just hit send.' },
-      { text: `I usually reply ${profile.replyTime}. Talk soon!` },
-    ]);
+    reply(t.send, 'sent', asLines(t.sent));
   }
 
   function restart() {
@@ -197,7 +177,7 @@ export function ChatThread({
     setStage('service');
     setDraft('');
     setError('');
-    setQueue([{ text: "Let's start over. What are you planning?" }]);
+    setQueue([{ text: t.restart }]);
   }
 
   return (
@@ -223,9 +203,7 @@ export function ChatThread({
                     : 'max-w-[80%] rounded-2xl rounded-bl-md bg-[#eef2f7] px-3.5 py-2 text-[0.94rem] leading-snug text-(--au-ink)'
               }
             >
-              <span className="sr-only">
-                {m.from === 'tony' ? `${profile.firstName}: ` : 'You: '}
-              </span>
+              <span className="sr-only">{m.from === 'tony' ? t.speakerTony : t.speakerYou}</span>
               {m.text}
             </p>
           </div>
@@ -238,7 +216,7 @@ export function ChatThread({
               <span />
               <span />
               <span />
-              <span className="sr-only">{profile.firstName} is typing</span>
+              <span className="sr-only">{t.typing}</span>
             </span>
           </div>
         )}
@@ -254,21 +232,21 @@ export function ChatThread({
         aria-busy={typing}
       >
         {stage === 'service' && (
-          <Chips label="What are you planning?" options={serviceOptions} onPick={pickService} />
+          <Chips
+            label={t.serviceLabel}
+            options={[...t.services, t.somethingElse]}
+            onPick={pickService}
+          />
         )}
         {stage === 'timeline' && (
-          <Chips label="When to start" options={timelineOptions} onPick={pickTimeline} />
+          <Chips label={t.timelineLabel} options={t.timelines} onPick={pickTimeline} />
         )}
 
         {(stage === 'name' || stage === 'email' || stage === 'message') && (
           <form onSubmit={submitText} noValidate>
             <div className="flex items-end gap-2">
               <label htmlFor={`${uid}-${stage}`} className="sr-only">
-                {stage === 'name'
-                  ? 'Your name'
-                  : stage === 'email'
-                    ? 'Your email address'
-                    : 'Anything else (optional)'}
+                {stage === 'name' ? t.nameLabel : stage === 'email' ? t.emailLabel : t.messageLabel}
               </label>
               {stage === 'message' ? (
                 <textarea
@@ -282,7 +260,7 @@ export function ChatThread({
                       finish(draft.trim());
                     }
                   }}
-                  placeholder="A link, an idea, a problem you're stuck on…"
+                  placeholder={t.messagePlaceholder}
                   className="min-h-11 flex-1 resize-none rounded-2xl border border-(--au-line) bg-white px-3.5 py-2.5 text-[0.94rem] outline-none placeholder:text-(--au-muted)/70 focus:border-(--au-blue)"
                 />
               ) : (
@@ -295,7 +273,7 @@ export function ChatThread({
                     setDraft(e.target.value);
                     setError('');
                   }}
-                  placeholder={stage === 'email' ? 'you@company.com' : 'Your name'}
+                  placeholder={stage === 'email' ? t.emailPlaceholder : t.namePlaceholder}
                   aria-invalid={Boolean(error)}
                   aria-describedby={error ? `${uid}-${stage}-error` : undefined}
                   className="h-11 flex-1 rounded-full border border-(--au-line) bg-white px-4 text-[0.94rem] outline-none placeholder:text-(--au-muted)/70 focus:border-(--au-blue)"
@@ -303,7 +281,7 @@ export function ChatThread({
               )}
               <button
                 type="submit"
-                aria-label="Send answer"
+                aria-label={t.submit}
                 className="grid size-11 shrink-0 place-items-center rounded-full bg-(--au-blue) text-white transition hover:bg-(--au-blue-deep)"
               >
                 <ArrowUp className="size-4.5" />
@@ -319,7 +297,7 @@ export function ChatThread({
                   onClick={() => finish('')}
                   className="font-medium text-(--au-muted) hover:text-(--au-ink)"
                 >
-                  Skip
+                  {t.skip}
                 </button>
               )}
             </div>
@@ -329,18 +307,18 @@ export function ChatThread({
         {stage === 'review' && (
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href={buildMailto(answers)}
+              href={buildMailto(answers, dict.mail)}
               onClick={markSent}
               className="inline-flex h-11 items-center gap-2 rounded-full bg-(--au-blue) px-5 text-sm font-semibold text-white transition hover:bg-(--au-blue-deep)"
             >
-              Send to {profile.firstName} <Send className="size-4" />
+              {t.send} <Send className="size-4" />
             </a>
             <button
               type="button"
               onClick={restart}
               className="inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-sm font-medium text-(--au-muted) hover:text-(--au-ink)"
             >
-              <RotateCcw className="size-3.5" /> Start over
+              <RotateCcw className="size-3.5" /> {t.startOver}
             </button>
           </div>
         )}
@@ -348,7 +326,7 @@ export function ChatThread({
         {stage === 'sent' && (
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-(--au-muted)">
             <span>
-              Nothing opened?{' '}
+              {t.nothingOpened}{' '}
               <a href={mailto()} className="font-medium text-(--au-blue)">
                 {profile.email}
               </a>
@@ -358,7 +336,7 @@ export function ChatThread({
               onClick={restart}
               className="inline-flex items-center gap-1.5 font-medium hover:text-(--au-ink)"
             >
-              <RotateCcw className="size-3.5" /> New message
+              <RotateCcw className="size-3.5" /> {t.newMessage}
             </button>
           </div>
         )}
