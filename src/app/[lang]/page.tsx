@@ -419,6 +419,9 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
             © {new Date().getFullYear()} {profile.company} · {dict.footer.location}
           </p>
           <div className="flex items-center gap-5">
+            <a href={`/${lang}/apps/meeting-po-brief`} className="transition hover:text-(--au-ink)">
+              Meeting PO Brief
+            </a>
             {socials.map(({ label, href, icon: Icon }) => (
               <a
                 key={label}
