@@ -1,14 +1,22 @@
 import { localeNames, locales, type Locale } from '@/i18n/config';
 
 /** Plain links to the other language; the proxy remembers the choice in a cookie. */
-export function LanguageSwitch({ current, label }: { current: Locale; label: string }) {
+export function LanguageSwitch({
+  current,
+  label,
+  path = '',
+}: {
+  current: Locale;
+  label: string;
+  path?: string;
+}) {
   return (
     <nav aria-label={label}>
       <ul className="flex rounded-full border border-(--au-line) bg-white/80 p-0.5 text-xs font-semibold">
         {locales.map((locale) => (
           <li key={locale}>
             <a
-              href={`/${locale}`}
+              href={`/${locale}${path}`}
               hrefLang={locale}
               lang={locale}
               aria-current={locale === current ? 'page' : undefined}
