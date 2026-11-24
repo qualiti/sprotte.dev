@@ -46,11 +46,7 @@ export async function generateMetadata({
 }
 
 /** Illustrative Epic Blocker Panel & Blocked Status card preview in crisp HTML. */
-function BlockerPreview({
-  preview,
-}: {
-  preview: BlockerIndicatorCopy['overview']['preview'];
-}) {
+function BlockerPreview({ preview }: { preview: BlockerIndicatorCopy['overview']['preview'] }) {
   return (
     <figure className="mx-auto w-full max-w-md">
       <div className="relative">

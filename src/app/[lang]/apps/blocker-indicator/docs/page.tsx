@@ -126,9 +126,7 @@ export default async function BlockerIndicatorDocsPage({
                     <div className="flex items-start gap-3.5">
                       <span
                         className={`grid size-9 shrink-0 place-items-center rounded-xl bg-white shadow-sm ${
-                          feature.callout.tone === 'warning'
-                            ? 'text-[#b56600]'
-                            : 'text-(--au-blue)'
+                          feature.callout.tone === 'warning' ? 'text-[#b56600]' : 'text-(--au-blue)'
                         }`}
                       >
                         {feature.callout.tone === 'warning' ? (

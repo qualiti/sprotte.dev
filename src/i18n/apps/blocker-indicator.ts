@@ -261,7 +261,7 @@ const en = {
         summary:
           'Highlights blocked cards yellow with a red flag on Jira boards and backlogs while protecting every manually set flag.',
         paragraphs: [
-          'When automatic flagging is enabled, Blocker Indicator for Jira sets Jira\'s native Flagged field whenever an issue becomes blocked, and removes the flag once all blockers are resolved or removed.',
+          "When automatic flagging is enabled, Blocker Indicator for Jira sets Jira's native Flagged field whenever an issue becomes blocked, and removes the flag once all blockers are resolved or removed.",
           'To ensure team workflows are never disrupted, the app stores a minimal Jira issue property (jira-blocker-indicator.flag-managed, containing only a boolean and timestamp) whenever it sets a flag. If a team member flagged an issue manually, the app detects that it does not own the flag and will never clear it when blockers resolve.',
         ],
         callout: {
@@ -281,7 +281,7 @@ const en = {
         bullets: [
           'Blocked issues tab: Lists each blocked child issue in the Epic along with its currently open blockers.',
           'Blockers tab: Aggregates blockers across the Epic and sorts them by impact (bottleneck blockers first, showing how many child issues each blocker is holding up).',
-          'Permission-aware: All issue reads respect the signed-in Jira user\'s project and issue security permissions.',
+          "Permission-aware: All issue reads respect the signed-in Jira user's project and issue security permissions.",
         ],
       },
       {
@@ -294,9 +294,9 @@ const en = {
         ],
         bullets: [
           'Project override modes: Choose between Use global defaults, Use custom settings, or Turn off for this project.',
-          'Configurable issue link types: Defaults to Blocks / is blocked by, and can be adjusted to match your Jira site\'s custom link types.',
+          "Configurable issue link types: Defaults to Blocks / is blocked by, and can be adjusted to match your Jira site's custom link types.",
           'Configurable completion (Done) rule: Decide whether a blocker counts as resolved when its Status category is Done or when Resolution is set.',
-          'Flagged toggle: Enable or disable automatic updates to Jira\'s native Flagged field globally or per project.',
+          "Flagged toggle: Enable or disable automatic updates to Jira's native Flagged field globally or per project.",
         ],
       },
       {
@@ -353,7 +353,7 @@ const en = {
         'Your Jira Cloud site URL or organization name (optional)',
         'Project type (company-managed or team-managed) and affected issue type (Epic, Story, Task, etc.)',
         'Your current Blocker Indicator settings (link types, Done rule, and whether auto-flagging is enabled)',
-        'If related to flagging: confirm whether the Flagged field is on the project\'s Edit Screen',
+        "If related to flagging: confirm whether the Flagged field is on the project's Edit Screen",
         'Steps to reproduce, expected vs. actual behavior, and screenshots if available',
       ],
     },
@@ -375,7 +375,7 @@ const en = {
     faq: [
       {
         q: 'Why is the native Jira Flagged field not being set on blocked issues?',
-        a: 'First verify that automatic flagging is enabled in Global Defaults or your project\'s custom settings. Next, check Project settings -> Screens and confirm that the standard Flagged field is added to the Edit Screen for the affected issue types. Jira requires the field on the Edit Screen before any app can update it.',
+        a: "First verify that automatic flagging is enabled in Global Defaults or your project's custom settings. Next, check Project settings -> Screens and confirm that the standard Flagged field is added to the Edit Screen for the affected issue types. Jira requires the field on the Edit Screen before any app can update it.",
       },
       {
         q: 'Will the app remove flags that my team added manually?',
@@ -419,13 +419,13 @@ const en = {
         scope: 'read:jira-work',
         access: 'Read',
         purpose:
-          'Reads Jira issues, issue links, link types, statuses, resolutions, projects, and field metadata to compute active blockers and render the Epic Blocker Panel (respecting the signed-in user\'s Jira permissions).',
+          "Reads Jira issues, issue links, link types, statuses, resolutions, projects, and field metadata to compute active blockers and render the Epic Blocker Panel (respecting the signed-in user's Jira permissions).",
       },
       {
         scope: 'write:jira-work',
         access: 'Write',
         purpose:
-          'Updates Jira\'s native Flagged field when automatic flagging is enabled, and writes the minimal jira-blocker-indicator.flag-managed issue property so manually set flags are never removed.',
+          "Updates Jira's native Flagged field when automatic flagging is enabled, and writes the minimal jira-blocker-indicator.flag-managed issue property so manually set flags are never removed.",
       },
       {
         scope: 'write:app-data:jira',
@@ -491,7 +491,7 @@ const en = {
         title: '3. Purpose & Legal Basis of Processing',
         paragraphs: [
           'Jira issue metadata (issue keys, issue links, statuses, resolutions, and parent/child Epic relationships) is processed transiently in memory inside Atlassian Forge solely to calculate the Blocked Status custom field, manage optional native Jira flags, and display the Epic Blocker Panel.',
-          'Under the EU General Data Protection Regulation (GDPR), this processing takes place on the basis of contract performance (Art. 6(1)(b) GDPR) and legitimate interests in reliable project and dependency tracking (Art. 6(1)(f) GDPR), subject to your organization\'s Jira Cloud agreement and Atlassian\'s Data Processing Addendum.',
+          "Under the EU General Data Protection Regulation (GDPR), this processing takes place on the basis of contract performance (Art. 6(1)(b) GDPR) and legitimate interests in reliable project and dependency tracking (Art. 6(1)(f) GDPR), subject to your organization's Jira Cloud agreement and Atlassian's Data Processing Addendum.",
         ],
       },
       {
@@ -555,7 +555,7 @@ const en = {
         bullets: [
           'Reverse engineer, decompile, disassemble, or attempt to extract source code from the App, except to the extent permitted by mandatory law.',
           'Resell, rent, lease, sublicense, or make the App available to unauthorized third parties outside your licensed Jira Cloud site.',
-          'Use the App in violation of applicable laws or Atlassian\'s Acceptable Use Policy.',
+          "Use the App in violation of applicable laws or Atlassian's Acceptable Use Policy.",
         ],
       },
       {
@@ -921,7 +921,8 @@ const de: BlockerIndicatorCopy = {
     featureRequest: {
       title: 'Feature-Wünsche & Feedback',
       cta: 'Feature vorschlagen',
-      intro: 'Wir entwickeln Blocker Indicator eng an realen Jira-Workflows weiter. Schreib uns gern:',
+      intro:
+        'Wir entwickeln Blocker Indicator eng an realen Jira-Workflows weiter. Schreib uns gern:',
       items: [
         'Welchen Workflow oder Engpass du auf Boards, in JQL-Filtern oder auf Epics lösen möchtest',
         'Wie dein Team Blocker aktuell in Jira Cloud verfolgt oder eskaliert',
